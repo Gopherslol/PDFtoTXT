@@ -4,14 +4,17 @@ trap cleanup 1 2 3 6
 
 cleanup()
 {
-  printf "Signal Caught, Cleaning up and Exiting\n"
+  printf "\nSignal Caught, Cleaning up and Exiting\n"
   rm /tmp/"$fileName".txt
   printf "Cleaned up\n"
   exit 1
 }
 
-fileName="$1"
-printf "Opening \033[0;36m"$1"\033[0m\n"
+filePath="$1"
+fileName=$(basename "$filePath")
+printf "Opening \033[0;36m"$1""
+printf "\033[0m"
+printf "\n"
 printf "This make take some time if it is a large file"
 pdftotext -layout "$1" /tmp/"$1".txt
 less /tmp/"$1".txt
